@@ -1,13 +1,17 @@
 import streamlit as st
-from summa import summarizer
+import pytextrank
 #from bert import predict_winning_percentage  # Import the prediction function from prediction_model.py
 from section import *
 # from bert import loaded_model
 # Function for text summarization using TextRank
 def summarize_text(text):
-    summarized = summarizer.summarize(text)
+    # Initialize PyTextRank
+    tr = pytextrank.TextRank()
+    tr.analyze(text)
+    # Get the top-ranked sentences as the summary
+    summarized = tr.summary(limit_phrases=15)
     return summarized
-
+    
 st.set_page_config(
     page_title="JudgerAI",
     page_icon="🧊",

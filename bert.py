@@ -2,6 +2,7 @@ import tensorflow as tf
 from transformers import BertTokenizer, TFBertModel
 import pandas as pd
 import re
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk import ne_chunk, pos_tag

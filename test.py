@@ -6,6 +6,7 @@ import string
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+nltk.download('punkt')
 
 # Load data
 x_train_df = pd.read_csv("X_train.csv")

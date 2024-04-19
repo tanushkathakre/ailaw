@@ -1,5 +1,5 @@
 import tensorflow as tf
-from transformers import BertTokenizer
+from transformers import BertTokenizer, TFBertModel
 import pandas as pd
 import re
 from nltk.tokenize import word_tokenize

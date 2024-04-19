@@ -315,6 +315,6 @@ def predict_winning_percentage(model, text_file_path):
     return winning_percentage_respondent, winning_percentage_petitioner
 
 # # Usage example:
-# respondent_percentage, petitioner_percentage = predict_winning_percentage(the_model_1_2, 'case2.txt')
-# print(f'Respondent winning percentage: {respondent_percentage}%')
-# print(f'Petitioner winning percentage: {petitioner_percentage}%')
+respondent_percentage, petitioner_percentage = predict_winning_percentage(the_model_1_2, 'case.txt')
+print(f'Respondent winning percentage: {respondent_percentage}%')
+print(f'Petitioner winning percentage: {petitioner_percentage}%')

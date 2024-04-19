@@ -1,2 +1,2 @@
 pytextrank
-sklearn
+scikit-learn

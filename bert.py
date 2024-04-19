@@ -6,7 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk import ne_chunk, pos_tag
 from nltk.tree import Tree
-
+nltk.download('stopwords')
 # Load tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
 

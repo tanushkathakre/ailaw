@@ -1,5 +1,8 @@
 from bert import *
 import streamlit as st # Import the prediction function
+import os
+
+os.environ['TF_USE_LEGACY_KERAS'] = 'True'
 
 # Load BERT model (assuming it's already initialized elsewhere)  # Replace with the appropriate method to load your BERT model
 

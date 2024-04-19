@@ -1,3 +1,4 @@
+keras==2.6.0
 summa
 pytextrank
 scikit-learn

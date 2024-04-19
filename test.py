@@ -1,14 +1,13 @@
+import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
+import string
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import string
 
-# Load CSV files
+# Load data
 x_train_df = pd.read_csv("X_train.csv")
 y_train_df = pd.read_csv("y_train.csv")
 
@@ -30,25 +29,23 @@ def preprocess_text(text):
 # Apply preprocessing to 'Facts' column
 x_train_df['Facts'] = x_train_df['Facts'].apply(preprocess_text)
 
-# Split data into train and validation sets
-x_train, x_val, y_train, y_val = train_test_split(x_train_df['Facts'], y_train_df['winner_index'], test_size=0.2, random_state=42)
-
 # TF-IDF Vectorization
 tfidf_vectorizer = TfidfVectorizer()
-x_train_tfidf = tfidf_vectorizer.fit_transform(x_train)
-x_val_tfidf = tfidf_vectorizer.transform(x_val)
+x_train_tfidf = tfidf_vectorizer.fit_transform(x_train_df['Facts'])
 
 # Train a classifier
 classifier = LogisticRegression()
-classifier.fit(x_train_tfidf, y_train)
+classifier.fit(x_train_tfidf, y_train_df['winner_index'])
 
-# Evaluate the model
-y_pred = classifier.predict(x_val_tfidf)
-print("Validation Accuracy:", accuracy_score(y_val, y_pred))
-print("Classification Report:")
-print(classification_report(y_val, y_pred))
+# Streamlit app
+st.title("Case Winning Probability Predictor")
 
-# Predict winning probability for new inputs
+# User inputs
+petitioner = st.text_input("Petitioner")
+respondent = st.text_input("Respondent")
+facts = st.text_area("Facts")
+
+# Prediction function
 def predict_winning_probability(petitioner, respondent, facts):
     # Preprocess the input facts
     processed_facts = preprocess_text(facts)
@@ -58,9 +55,10 @@ def predict_winning_probability(petitioner, respondent, facts):
     winning_probability = classifier.predict_proba(input_tfidf)
     return winning_probability
 
-# Example usage
-petitioner = "James L. Kisor"
-respondent = "Robert L. Wilkie"
-facts = "Petitioner James L. Kisor is a veteran of the US Marine Corps..."
-winning_probability = predict_winning_probability(petitioner, respondent, facts)
-print("Winning Probability:", winning_probability)
+# Predict and display result
+if st.button("Predict"):
+    if petitioner.strip() == "" or respondent.strip() == "" or facts.strip() == "":
+        st.warning("Please enter all inputs.")
+    else:
+        winning_probability = predict_winning_probability(petitioner, respondent, facts)
+        st.success(f"Winning Probability for Petitioner: {winning_probability[0][1]}")

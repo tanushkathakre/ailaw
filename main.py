@@ -1,5 +1,5 @@
 import streamlit as st
-from summa import summarizer  # TextRank summarization
+from gensim.summarization import summarize 
 #from bert import predict_winning_percentage  # Import the prediction function from prediction_model.py
 from section import *
 # from bert import loaded_model

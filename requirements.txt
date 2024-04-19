@@ -1,2 +1,3 @@
 pytextrank
 scikit-learn
+nltk
